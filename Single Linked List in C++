@@ -1,0 +1,244 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+class node
+{
+private:
+int data;
+node *addrs;
+public:
+void add(int);
+void display(void);
+int count(void);
+void sort(void);
+void insert(int,int);
+void remove(int);
+void search(int);
+};
+node *p;
+void node :: add(int num)
+{
+node *q=p;
+if(p==NULL)
+{
+p=new node;
+p-> data = num;
+p-> addrs = NULL;
+}
+else
+{
+while(q-> addrs != NULL)
+{
+q= q-> addrs;
+}
+q-> addrs = new node;
+q-> addrs-> data = num;
+q-> addrs-> addrs = NULL;
+}
+}
+void node :: display(void)
+{
+node *q=p;
+if(p==NULL)
+{
+cout<< "No Linked List";
+}
+else
+{
+while(q!=NULL)
+
+
+{
+cout<< q
+->data<<endl;
+q=q
+->addrs;
+
+}
+}
+}
+int node :: count(void) {
+node *q=p;
+int i=0;
+if(p==NULL) {
+return 0;
+}
+else {
+while(q!=NULL) {
+i=i+1;
+q=q
+->addrs;
+
+}
+return i;
+}
+}
+void node :: sort(void) {
+node *i;
+int temp;
+node *j;
+for(i=p;i!=NULL;i=i->addrs)
+
+{
+for(j=i->addrs;j!=NULL;j=j->addrs)
+
+{
+if(i->data > j->data)
+
+{
+temp=i->data;
+i->data=j->data;
+j->data=temp;
+}
+}
+}
+}
+void node :: insert(int pos,int num) {
+int i;
+node *q=p;
+node *temp;
+if(pos==1) {
+p=new node;
+p->data=num; 
+p->addrs=q;
+return;
+}
+if(pos==1+count()) {
+add(num);
+return;
+}
+for(i=1;i<=(pos-2);i++)
+
+{
+q=q->addrs;
+
+}
+temp=q->addrs;
+q->addrs=new node;
+q->addrs->data=num;
+q->addrs->addrs=temp;
+
+}
+void node :: remove(int pos) {
+node *q=p;
+node *temp;
+int i;
+if(p==NULL) {
+cout<<"No linked list";
+}
+if(pos==1) {
+p=p->addrs;
+delete(q);
+}
+else {
+for(i=1;i<=(pos-2);i++)
+
+{
+q=q->addrs;
+
+}
+temp=q->addrs;
+q->addrs=q->addrs->addrs;
+
+delete(temp);
+}
+}
+void node:: search(int num) {
+int flag=0,pos=1;
+node *q;
+for(q=p;q!=NULL;q=q->addrs)
+
+{
+if(q->data==num)
+{
+flag=1;
+break;
+}
+pos++;
+}
+
+if(flag==1)
+{
+cout<<"no. found at position: "<<pos<<endl;
+}
+else
+{
+cout<<"Element not found..";
+}
+}
+void main(void)
+{
+int num,pos,option;
+node n;
+char ch='y';
+p=NULL;
+clrscr();
+while(ch=='y')
+{
+cout<< "1.Add
+
+\n2.Display\n3.Count\n4.Sort\n5.Insert\n6.Remove\n7.Search"<<endl;
+
+cout<< "\n Enter Option: ";
+cin>>option;
+cout<<endl;
+switch(option)
+{
+case 1:
+{
+cout<<"Enter data: ";
+cin>> num;
+n.add(num);
+cout<<"Do You Want To Continue?.."<<endl;
+break;
+}
+case 2:
+{
+n.display();
+cout<<"Do You Want To Continue?.."<<endl;
+break;
+}
+case 3:
+{
+num=n.count();
+cout<<"Count is: "<<num<<endl;
+cout<<"Do you want to continue?.."<<endl;
+break;
+}
+case 4:
+{
+n.sort();
+cout<<"Do You Want To Continue?.."<<endl;
+break;
+}
+
+case 5:
+{
+cout<<"enter position: "<<endl;
+cin>>pos;
+cout<<"enter data: "<<endl;
+cin>>num;
+n.insert(pos,num);
+cout<<"Do You Want To Continue?.."<<endl;
+break;
+}
+case 6:
+{
+cout<<"enter position:"<<endl;
+cin>>pos;
+n.remove(pos);
+cout<<"do you want to continue?"<<endl;
+break;
+}
+case 7:
+{
+cout<<"enter no. to be searched: "<<endl;
+cin>>num;
+n.search(num);
+cout<<"do you want to continue?"<<endl;
+break;
+}
+}
+ch=getch();
+}
+}
